@@ -13,7 +13,9 @@ This test creates a key with the chosen algorithm and a CSR based on that key. T
 sudo apt-get install jq
 ```
  - `/ejbca/ejbca-rest-api/v1/certificate` endpoint must be enable on EJBCA  
- 
+
+ - A new branch with name "gh-pages" must be created to store reports
+
 
 ## Get Started
 
