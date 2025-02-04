@@ -6,6 +6,14 @@ The workflow runs on any self-hosted Linux runner added to the repo.
 The workflow will install JMeter on the runner's file system and run the JMeter test defined on tests/ejbca-performance-test.jmx.  
 This test creates a key with the chosen algorithm and a CSR based on that key. Through EJBCA API /ejbca/ejbca-rest-api/v1/certificate/pkcs10enroll the pretended certificate is created.  
 
+## Pre-requisites
+
+ - The self-hosted runner must have installed jq tool
+```
+sudo apt-get install jq
+```
+ - `/ejbca/ejbca-rest-api/v1/certificate` endpoint must be enable on EJBCA  
+ 
 
 ## Get Started
 

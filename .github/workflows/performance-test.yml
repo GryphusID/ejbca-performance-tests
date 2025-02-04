@@ -62,12 +62,12 @@ jobs:
           echo "deployrunner=${{ inputs.environment_name }}" >> $GITHUB_OUTPUT
 
   run-jmeter:    
-    #needs: [setup-runner]
-    #environment: ${{ inputs.environment_name }}
-    runs-on: vm6
-    name: Run jmeter on -vm6-
+    needs: [setup-runner]
+    environment: ${{ inputs.environment_name }}
+    runs-on: ${{needs.setup-runner.outputs.deployrunner}}
+    name: Run jmeter on -${{needs.setup-runner.outputs.deployrunner}}-
     env:
-      runnerLabels: vm6
+      runnerLabels: ${{needs.setup-runner.outputs.deployrunner}}
 
     steps:
       - name: Checkout code
