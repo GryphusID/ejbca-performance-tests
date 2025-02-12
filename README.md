@@ -1,23 +1,35 @@
-# ejbca-performance-tests
-EJBCA performance tests
+# EJBCA performance tests
+
 
 This project implements performance tests on EJBCA instances using GitHub workflows.  
+<p align="justify">
 The workflow runs on any self-hosted Linux runner added to the repo.  
-The workflow will install JMeter on the runner's file system and run the JMeter test defined on tests/ejbca-performance-test.jmx.  
+It will install JMeter on the runner's file system and run the JMeter test defined on tests/ejbca-performance-test.jmx.  
 This test creates a key with the chosen algorithm and a CSR based on that key. Through EJBCA API /ejbca/ejbca-rest-api/v1/certificate/pkcs10enroll the pretended certificate is created.  
+</p>
 
-![Same server](images/load_test_1.png)
-Github runner and EJBCA on the same server
-
-![Different servers](images/load_test_2.png)
-Github runner and EJBCA in different servers
-
-![Choose EJBCA](images/load_test_3.png)
-Choose which EJBCA will run the workflow
+<br><br>
+| **Figure 1: GitHub runner and EJBCA on the same server.** |
+|:--:|
+| ![Same server](images/load_test_1.png) |
 
 
 
+<br><br>
+| **Figure 2: GitHub runner and EJBCA on different servers** |
+|:--:|
+| ![Different servers](images/load_test_2.png) |
 
+
+
+<br><br>
+| **Figure 3: Choose in which EJBCA will run the workflow** |
+|:--:|
+| ![Choose EJBCA](images/load_test_3.png) |
+
+
+
+<br><br>
 
 ## Pre-requisites
 
