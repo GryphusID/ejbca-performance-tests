@@ -49,11 +49,11 @@ Follow the [recipe](https://github.com/GryphusID/ejbca-performance-tests/setting
 Add a new label (example: prod) to that runner.  
 
 2. Go to [Environments](https://github.com/GryphusID/ejbca-performance-tests/settings/environments) and create a [new environment](https://github.com/GryphusID/ejbca-performance-tests/settings/environments/new) with exactly the same name as the label added to the runner in the previous step.
-   - Add one environment secret with the name "EJBCA_KEYSTORE_PASS". This secret must be configured with the EJBCA keystore password as it was configured on the property superadmin.password at the EJBCA web.properties file
+   - Add one environment secret with the name "__EJBCA_KEYSTORE_PASS__". This secret must be configured with the EJBCA keystore password as it was configured on the property superadmin.password at the EJBCA web.properties file
    - Add 3 environment variables
-     - EJBCA_HOSTNAME: with the hostname of the server where EJBCA is installed (example: "localhost" if both github runner and EJBCA are installed on the same server)  
-     - EJBCA_P12_KEYSTORE_FILE: path on the GitHub ruuner server, where p12 keystore file are available (example: /opt/ejbca-ce/p12/superadmin.p12)  
-     - EJBCA_PORT: EJBCA HTTPS API port (example: 8443)
+     - __EJBCA_HOSTNAME__: with the hostname of the server where EJBCA is installed (example: "localhost" if both github runner and EJBCA are installed on the same server)  
+     - __EJBCA_P12_KEYSTORE_FILE__: path on the GitHub ruuner server, where p12 keystore file are available (example: /opt/ejbca-ce/p12/superadmin.p12)  
+     - __EJBCA_PORT__: EJBCA HTTPS API port (example: 8443)
 
 3. Go to Actions and in the "Actions" list choose [Performance test](https://github.com/GryphusID/ejbca-performance-tests/actions/workflows/performance-test.yml), and then "Run workflow"
 
