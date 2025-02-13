@@ -58,18 +58,18 @@ Add a new label (example: prod) to that runner.
 3. Go to Actions and in the "Actions" list choose [Performance test](https://github.com/GryphusID/ejbca-performance-tests/actions/workflows/performance-test.yml), and then "Run workflow"
 
 4. This workflow is parameterized, and mandatory settings must be filled with:
-   - *Environment:* choose the environment (previously configured) where you want to run this test
-   - *Number of threads:* number of (parallel) users pretended in this run
-   - *Number of certificates per thread:* number of certificates each user must request
-   - *Key algorithm:* choose the key algorithm to this run
-   - *CA name:* name of CA to issue the certificates available at the EJBCA 
-   - *CA profile name:* CA profile name available at the EJBCA  
-   - *End user profile name:* end-user profile name available at the EJBCA  
-   - *Subject DN:* subject DN. This can be dynamically customized for each user with the character "#".   
+   - __Environment:__ choose the environment (previously configured) where you want to run this test
+   - __Number of threads:__ number of (parallel) users pretended in this run
+   - __Number of certificates per thread:__ number of certificates each user must request
+   - __Key algorithm:__ choose the key algorithm to this run
+   - __CA name:__ name of CA to issue the certificates available at the EJBCA 
+   - __CA profile name:__ CA profile name available at the EJBCA  
+   - __End user profile name:__ end-user profile name available at the EJBCA  
+   - __Subject DN:__ subject DN. This can be dynamically customized for each user with the character "#".   
    Example: If subject DN =  "/CN=enduser#/O=enduser#_org/C=PT"  
     Subject DN for user 1: /CN=enduser2/O=enduser1_org/C=PT  
     Subject DN for user 2: /CN=enduser2/O=enduser2_org/C=PT  
-     Subject DN for user 3: ...  
+    Subject DN for user 3: ...  
 
 
 5. The results are availablr at the [GitHub pages](https://gryphusid.github.io/ejbca-performance-tests/) for this repository.
