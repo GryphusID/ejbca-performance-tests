@@ -17,7 +17,7 @@ jobs:
 
       - name: Remove the specified report
         run: |
-          cd repo/reports
+          cd reports
           if [ -d "${{ inputs.report_id }}" ]; then
             echo "Removing report: ${{ inputs.report_id }}"
             rm -rf "${{ inputs.report_id }}"
@@ -28,7 +28,6 @@ jobs:
 
       - name: Update Index File
         run: |
-          cd repo
           echo "<!DOCTYPE html>" > index.html
           echo "<html><head><title>Reports</title></head><body><h1>Reports List</h1><ul>" >> index.html
           for folder in $(ls -d reports/*/ 2>/dev/null || true); do
