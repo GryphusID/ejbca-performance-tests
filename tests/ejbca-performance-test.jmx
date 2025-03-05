@@ -46,16 +46,35 @@
           </elementProp>
           <stringProp name="SystemSampler.directory"></stringProp>
         </SystemSampler>
+        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSR CSV Data Set">
+          <stringProp name="filename">/dev/shm/csr_storage/csr_list.csv</stringProp>
+          <boolProp name="ignoreFirstLine">false</boolProp>
+          <boolProp name="recycle">false</boolProp>
+          <boolProp name="stopThread">true</boolProp>
+          <stringProp name="variableNames">thread_id,csr</stringProp>
+          <stringProp name="delimiter">,</stringProp>
+        </CSVDataSet>
         <hashTree>
           <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor">
             <stringProp name="scriptLanguage">groovy</stringProp>
             <stringProp name="parameters"></stringProp>
             <stringProp name="filename"></stringProp>
             <stringProp name="cacheKey">true</stringProp>
-            <stringProp name="script">// Get the output of the OS Process Sampler
+            <stringProp name="script">// Get the output of the OS Process Sampler or CSV file
 //def csr = prev.getResponseDataAsString().trim()
 //def csr = prev.getResponseDataAsString().trim().replaceAll(&quot;\\r?\\n&quot;, &quot;&quot;)
-def csr = prev.getResponseDataAsString()
+def csr_mode = vars.get("csr_mode")
+def csr = ""
+
+if (csr_mode == "Pre-made CSR") {
+    csr = vars.get("csr")  // Get from CSV file
+} else {
+    csr = prev.getResponseDataAsString()  // Get from OS Process Sampler
+}
+
+
+
+//def csr = prev.getResponseDataAsString()
 
 def cpn = &quot;${__P(cert_profile_name, "cpn")}&quot;
 def eepn = &quot;${__P(end_user_name, "eepn")}&quot;

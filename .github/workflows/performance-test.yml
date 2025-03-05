@@ -6,6 +6,14 @@ on:
       environment_name:
         type: environment
         description: 'Choose environment'      
+      csr_mode:
+        description: 'CSR creation mode'
+        type: choice
+        required: true
+        default: 'Pre-made CSR'
+        options:
+          - Pre-made CSR
+          - Make CSR on the fly  
       num_of_threads:
         description: 'Number of threads (end-user clients)'
         required: false
@@ -99,12 +107,19 @@ jobs:
       - name: Show variables
         run: |
           echo "Running on ${{ env.runnerLabels }} with variables ${{ vars.EJBCA_HOSTNAME }} and ${{ vars.EJBCA_PORT }}"
-  
+
+    # Pre-generate CSRs if needed
+      - name: Pre-generate CSRs
+        if: inputs.csr_mode == 'Pre-made CSR'
+        run: |
+          mkdir -p /dev/shm/csr_storage
+          bash $GITHUB_WORKSPACE/tests/create_csr.sh 0 "${{ inputs.algorithm }}" "${{ inputs.subject_dn }}" 0 ${{ inputs.num_of_threads }}*${{ inputs.num_of_certs }}
+
     #run jmeter test plan:
       - name: Run JMeter Test Plan
         run: |
           $GITHUB_WORKSPACE/jmeter/apache-jmeter-5.6.3/bin/jmeter -n -t $GITHUB_WORKSPACE/tests/ejbca-performance-test.jmx \
-          -l test-results-${RUN_ID}__${{ inputs.num_of_threads }}x${{ inputs.num_of_certs }}_${{ inputs.algorithm }}_on_${{ env.runnerLabels }}.jtl \
+          -l test-results-${RUN_ID}_${{ inputs.num_of_threads }}x${{ inputs.num_of_certs }}_${{ inputs.algorithm }}_on_${{ env.runnerLabels }}.jtl \
           -Jthread_count=${{ inputs.num_of_threads }} \
           -Jramp_up_period=1 \
           -Jloop_count=${{ inputs.num_of_certs }} \
@@ -115,6 +130,7 @@ jobs:
           -Jalgorithm=${{ inputs.algorithm }} \
           -Jca_name=${{ inputs.ca_name }} \
           -Jsubject_dn=${{ inputs.subject_dn }} \
+          -Jcsr_mode=${{ inputs.csr_mode }} \
           -e -o report-${RUN_ID}
           if [ $? -ne 0 ]; then
             echo "JMETER_RETURNVALUE=1" >> $GITHUB_ENV
