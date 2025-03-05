@@ -26,6 +26,8 @@
           <stringProp name="variableNames">thread_id,csr</stringProp>
           <stringProp name="delimiter">,</stringProp>
         </CSVDataSet>
+       </hashTree>
+       <hashTree> 
         <SystemSampler guiclass="SystemSamplerGui" testclass="SystemSampler" testname="OS Process Sampler">
           <boolProp name="SystemSampler.checkReturnCode">true</boolProp>
           <stringProp name="SystemSampler.expectedReturnCode">0</stringProp>
