@@ -27,6 +27,7 @@
           <stringProp name="delimiter">,</stringProp>
         </CSVDataSet>        
         <hashTree/>  
+        <hashTree>
         <IfController guiclass="IfControllerPanel" testclass="IfController" testname="Conditional CSR Execution">
           <stringProp name="IfController.condition">${__P(csr_mode, "csrmode")} == "Make CSR on the fly"</stringProp>
           <boolProp name="IfController.evaluateAll">false</boolProp>
@@ -59,6 +60,7 @@
           </elementProp>
           <stringProp name="SystemSampler.directory"></stringProp>
         </SystemSampler>
+        </hashTree>
         <hashTree>
           <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor">
             <stringProp name="scriptLanguage">groovy</stringProp>
