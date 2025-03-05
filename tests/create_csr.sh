@@ -35,9 +35,11 @@ generate_csr_cmd() {
     # Construct the CSR command
     local csr_cmd
     csr_cmd="openssl req -new -key <(${key_cmd}) -subj \"${changed_subject}\""
-    echo -n "-----BEGIN CERTIFICATE REQUEST-----\n"
-    eval ${csr_cmd} | grep -v "CERTIFICATE REQUEST" | tr -d '\n'
-    echo -n "\n-----END CERTIFICATE REQUEST-----"
+    #echo -n "-----BEGIN CERTIFICATE REQUEST-----\n"
+    #eval ${csr_cmd} | grep -v "CERTIFICATE REQUEST" | tr -d '\n'
+    #echo -n "\n-----END CERTIFICATE REQUEST-----"
+    eval ${csr_cmd}
+
 }
 
 
