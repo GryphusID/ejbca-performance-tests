@@ -17,17 +17,6 @@
           <boolProp name="LoopController.continue_forever">false</boolProp>
         </elementProp>
       </ThreadGroup>
-      <hashTree>
-        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSR CSV Data Set">
-          <stringProp name="filename">/dev/shm/csr_storage/csr_list.csv</stringProp>
-          <boolProp name="ignoreFirstLine">false</boolProp>
-          <boolProp name="recycle">false</boolProp>
-          <boolProp name="stopThread">true</boolProp>
-          <stringProp name="variableNames">thread_id,csr</stringProp>
-          <stringProp name="delimiter">,</stringProp>
-        </CSVDataSet>
-        <hashTree/>
-      </hashTree>
       <hashTree> 
         <SystemSampler guiclass="SystemSamplerGui" testclass="SystemSampler" testname="OS Process Sampler">
           <boolProp name="SystemSampler.checkReturnCode">true</boolProp>
