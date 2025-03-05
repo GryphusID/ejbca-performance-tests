@@ -69,5 +69,6 @@ fi
 # Create CSR
 #csr_cmd="openssl req -new -key <(${key_cmd}) -subj /CN=enduser${THREAD}/O=enduser${THREAD}_org/C=PT"
 csr_output=$(generate_csr_cmd "$ALGORITHM" "$THREAD" "$SUBJECT")
-echo "$csr_output"
-
+echo -n "-----BEGIN CERTIFICATE REQUEST-----\n"
+eval ${csr_output} | grep -v "CERTIFICATE REQUEST" | tr -d '\n'
+echo -n "\n-----END CERTIFICATE REQUEST-----"
