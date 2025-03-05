@@ -26,7 +26,11 @@
           <stringProp name="variableNames">thread_id,csr_id</stringProp>
           <stringProp name="delimiter">,</stringProp>
         </CSVDataSet>        
-        <hashTree/>      
+        <hashTree/>  
+        <IfController guiclass="IfControllerPanel" testclass="IfController" testname="Conditional CSR Execution">
+          <stringProp name="IfController.condition">${__P(csr_mode, "csrmode")} == "Make CSR on the fly"</stringProp>
+          <boolProp name="IfController.evaluateAll">false</boolProp>
+        </IfController>            
         <SystemSampler guiclass="SystemSamplerGui" testclass="SystemSampler" testname="OS Process Sampler">
           <boolProp name="SystemSampler.checkReturnCode">true</boolProp>
           <stringProp name="SystemSampler.expectedReturnCode">0</stringProp>
@@ -67,19 +71,11 @@
 def csr_mode = &quot;${__P(csr_mode, "csrmode")}&quot;
 def csr = ""
 
-def filePath = '/dev/shm/csr_storage/mm.txt'
-
 if (csr_mode == "Pre-made CSR") {
     csr = vars.get("csr_id")  // Get from CSV file    
 } else {
     csr = prev.getResponseDataAsString()  // Get from OS Process Sampler    
 }
-
-// Use Groovy's File class to append text to the file
-def file = new File(filePath)
-file.append(csr_mode + " + " + csr + " + " + "\n")  
-
-//def csr = prev.getResponseDataAsString()
 
 def cpn = &quot;${__P(cert_profile_name, "cpn")}&quot;
 def eepn = &quot;${__P(end_user_name, "eepn")}&quot;
