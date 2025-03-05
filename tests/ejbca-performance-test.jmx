@@ -23,7 +23,7 @@
           <boolProp name="ignoreFirstLine">false</boolProp>
           <boolProp name="recycle">false</boolProp>
           <boolProp name="stopThread">true</boolProp>
-          <stringProp name="variableNames">thread_id,csr</stringProp>
+          <stringProp name="variableNames">thread_id,csr_id</stringProp>
           <stringProp name="delimiter">,</stringProp>
         </CSVDataSet>        
         <hashTree/>      
@@ -70,10 +70,14 @@ def csr = ""
 def filePath = '/dev/shm/csr_storage/mm.txt'
 
 if (csr_mode == "Pre-made CSR") {
-    csr = vars.get("csr")  // Get from CSV file    
+    csr = vars.get("csr_id")  // Get from CSV file    
 } else {
     csr = prev.getResponseDataAsString()  // Get from OS Process Sampler    
 }
+
+// Use Groovy's File class to append text to the file
+def file = new File(filePath)
+file.append(csr_mode + " + " + csr + " + " + text + "\n")  // Adds a newline after the text
 
 //def csr = prev.getResponseDataAsString()
 
