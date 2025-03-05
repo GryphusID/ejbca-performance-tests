@@ -130,6 +130,44 @@ vars.put(&quot;json_payload&quot;, jsonPayload)  // Store the payload in a JMete
             </collectionProp>
           </HeaderManager>
           <hashTree/>
+          <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">// Get the output of the OS Process Sampler or CSV file
+//def csr = prev.getResponseDataAsString().trim()
+//def csr = prev.getResponseDataAsString().trim().replaceAll(&quot;\\r?\\n&quot;, &quot;&quot;)
+def csr_mode = &quot;${__P(csr_mode, "csrmode")}&quot;
+def csr = ""
+
+if (csr_mode == "Pre-made CSR") {
+    csr = vars.get("csr_id")  // Get from CSV file    
+} else {
+    csr = prev.getResponseDataAsString()  // Get from OS Process Sampler    
+}
+
+def cpn = &quot;${__P(cert_profile_name, "cpn")}&quot;
+def eepn = &quot;${__P(end_user_name, "eepn")}&quot;
+def ca = &quot;${__P(ca_name, "ca")}&quot;
+def un = &quot;user_${__P(ca_name, "ca")}_${__threadNum}&quot;
+def pwd = &quot;username${__threadNum}&quot;
+def ic = &quot;true&quot;
+
+def jsonPayload = &quot;&quot;&quot;{
+  &quot;certificate_request&quot;: &quot;$csr&quot;,
+  &quot;certificate_profile_name&quot;: &quot;$cpn&quot;,
+  &quot;end_entity_profile_name&quot;: &quot;$eepn&quot;,
+  &quot;certificate_authority_name&quot;: &quot;$ca&quot;,
+  &quot;username&quot;: &quot;$un&quot;,
+  &quot;password&quot;: &quot;$pwd&quot;,
+  &quot;include_chain&quot;: &quot;$ic&quot;
+}&quot;&quot;&quot;
+
+vars.put(&quot;json_payload&quot;, jsonPayload)  // Store the payload in a JMeter variable
+</stringProp>
+          </JSR223PreProcessor>
+          <hashTree/>
         </hashTree>
         <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
