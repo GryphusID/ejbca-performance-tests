@@ -65,6 +65,7 @@
 //def csr = prev.getResponseDataAsString().trim()
 //def csr = prev.getResponseDataAsString().trim().replaceAll(&quot;\\r?\\n&quot;, &quot;&quot;)
 def csr_mode = vars.get("csr_mode")
+def csr_modes = &quot;${__P(csr_mode, "csrmode")}&quot;
 def csr = ""
 
 def filePath = '/dev/shm/csr_storage/mm.txt'
@@ -82,7 +83,7 @@ if (csr_mode == "Pre-made CSR") {
 
 // Use Groovy's File class to append text to the file
 def file = new File(filePath)
-file.append(csr_mode + " + " + " + " + text + "\n")  // Adds a newline after the text
+file.append(csr_mode + " + " + csr_modes + " + " + text + "\n")  // Adds a newline after the text
 
 
 
