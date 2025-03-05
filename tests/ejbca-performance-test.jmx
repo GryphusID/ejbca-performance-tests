@@ -26,8 +26,14 @@
           <stringProp name="variableNames">thread_id,csr_id</stringProp>
           <stringProp name="delimiter">,</stringProp>
         </CSVDataSet>        
-        <hashTree/>  
-        <SystemSampler guiclass="SystemSamplerGui" testclass="SystemSampler" testname="OS Process Sampler">
+        <hashTree/> 
+        <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller">
+          <stringProp name="IfController.condition">${__P(csr_mode, &quot;csrmode&quot;)} != &quot;Pre-made CSR&quot;</stringProp>
+          <boolProp name="IfController.evaluateAll">false</boolProp>
+          <boolProp name="IfController.useExpression">true</boolProp>
+        </IfController>
+        <hashTree>
+         <SystemSampler guiclass="SystemSamplerGui" testclass="SystemSampler" testname="OS Process Sampler">
           <boolProp name="SystemSampler.checkReturnCode">true</boolProp>
           <stringProp name="SystemSampler.expectedReturnCode">0</stringProp>
           <stringProp name="SystemSampler.command">tests/create_csr.sh</stringProp>
@@ -54,8 +60,9 @@
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
           <stringProp name="SystemSampler.directory"></stringProp>
-        </SystemSampler>        
-        <hashTree>
+         </SystemSampler> 
+         <hashTree/>
+        </hashTree>        
           <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor">
             <stringProp name="scriptLanguage">groovy</stringProp>
             <stringProp name="parameters"></stringProp>
@@ -93,8 +100,7 @@ def jsonPayload = &quot;&quot;&quot;{
 vars.put(&quot;json_payload&quot;, jsonPayload)  // Store the payload in a JMeter variable
 </stringProp>
           </JSR223PostProcessor>
-          <hashTree/>
-        </hashTree>
+          <hashTree/>        
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request - enroll">
           <stringProp name="HTTPSampler.domain">${__P(host_name, "localhost")}</stringProp>
           <stringProp name="HTTPSampler.port">${__P(host_port, 8443)}</stringProp>
