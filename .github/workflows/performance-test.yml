@@ -119,6 +119,7 @@ jobs:
           if [ $? -ne 0 ]; then
             echo "JMETER_RETURNVALUE=1" >> $GITHUB_ENV
           fi
+          cd $GITHUB_WORKSPACE
           failures=$(jq '.Total.errorCount' report-${RUN_ID}/statistics.json)          
           echo "JMETER_RETURNVALUE=$failures" >> $GITHUB_ENV
         env:
