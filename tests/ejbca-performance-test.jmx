@@ -18,6 +18,14 @@
         </elementProp>
       </ThreadGroup>
       <hashTree>
+        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSR CSV Data Set">
+          <stringProp name="filename">/dev/shm/csr_storage/csr_list.csv</stringProp>
+          <boolProp name="ignoreFirstLine">false</boolProp>
+          <boolProp name="recycle">false</boolProp>
+          <boolProp name="stopThread">true</boolProp>
+          <stringProp name="variableNames">thread_id,csr</stringProp>
+          <stringProp name="delimiter">,</stringProp>
+        </CSVDataSet>
         <SystemSampler guiclass="SystemSamplerGui" testclass="SystemSampler" testname="OS Process Sampler">
           <boolProp name="SystemSampler.checkReturnCode">true</boolProp>
           <stringProp name="SystemSampler.expectedReturnCode">0</stringProp>
@@ -46,14 +54,6 @@
           </elementProp>
           <stringProp name="SystemSampler.directory"></stringProp>
         </SystemSampler>
-        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSR CSV Data Set">
-          <stringProp name="filename">/dev/shm/csr_storage/csr_list.csv</stringProp>
-          <boolProp name="ignoreFirstLine">false</boolProp>
-          <boolProp name="recycle">false</boolProp>
-          <boolProp name="stopThread">true</boolProp>
-          <stringProp name="variableNames">thread_id,csr</stringProp>
-          <stringProp name="delimiter">,</stringProp>
-        </CSVDataSet>
         <hashTree>
           <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor">
             <stringProp name="scriptLanguage">groovy</stringProp>
