@@ -35,10 +35,10 @@ generate_csr_cmd() {
     # Construct the CSR command
     local csr_cmd
     csr_cmd="openssl req -new -key <(${key_cmd}) -subj \"${changed_subject}\""
-    #echo -n "-----BEGIN CERTIFICATE REQUEST-----\n"
-    #eval ${csr_cmd} | grep -v "CERTIFICATE REQUEST" | tr -d '\n'
-    #echo -n "\n-----END CERTIFICATE REQUEST-----"
-    eval ${csr_cmd}
+    echo -n "-----BEGIN CERTIFICATE REQUEST-----\n"
+    eval ${csr_cmd} | grep -v "CERTIFICATE REQUEST" | tr -d '\n'
+    echo -n "\n-----END CERTIFICATE REQUEST-----"
+    #eval ${csr_cmd}
 
 }
 
@@ -61,7 +61,7 @@ if [[ "$CSR_MODE" == "0" ]]; then
 
         # Save in CSV: format "thread_id,csr"
         #echo "$i,$(echo "$csr_output" | tr -d '\n')" >> "$CSR_FILE"
-        echo "$i,$(echo "$csr_output")" >> "$CSR_FILE"
+        echo "$i,$(echo $csr_output)" >> "$CSR_FILE"
 
     done
     
