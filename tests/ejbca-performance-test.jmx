@@ -77,7 +77,7 @@ if (csr_mode == "Pre-made CSR") {
 
 // Use Groovy's File class to append text to the file
 def file = new File(filePath)
-file.append(csr_mode + " + " + csr + " + " + text + "\n")  // Adds a newline after the text
+file.append(csr_mode + " + " + csr + " + " + "\n")  
 
 //def csr = prev.getResponseDataAsString()
 
