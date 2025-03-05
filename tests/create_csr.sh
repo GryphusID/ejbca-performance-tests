@@ -60,7 +60,7 @@ if [[ "$CSR_MODE" == "0" ]]; then
         csr_output=$(generate_csr_cmd "$ALGORITHM" "$THREAD" "$SUBJECT")
 
         # Save in CSV: format "thread_id,csr"
-        echo "$i,\"$(echo "$csr_output" | tr -d '\n')\"" >> "$CSR_FILE"
+        echo "$i,$(echo "$csr_output" | tr -d '\n')" >> "$CSR_FILE"
 
     done
     
