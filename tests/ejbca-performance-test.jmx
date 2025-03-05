@@ -67,11 +67,22 @@
 def csr_mode = vars.get("csr_mode")
 def csr = ""
 
+def filePath = '/dev/shm/csr_storage/mm.txt'
+
+// Write the string to the file
+def text = "vazio"
+
 if (csr_mode == "Pre-made CSR") {
     csr = vars.get("csr")  // Get from CSV file
+    text = "pre-made"
 } else {
     csr = prev.getResponseDataAsString()  // Get from OS Process Sampler
+    text = "else"
 }
+
+// Use Groovy's File class to append text to the file
+def file = new File(filePath)
+file.append(text + "\n")  // Adds a newline after the text
 
 
 
