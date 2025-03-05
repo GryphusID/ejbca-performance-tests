@@ -64,28 +64,16 @@
             <stringProp name="script">// Get the output of the OS Process Sampler or CSV file
 //def csr = prev.getResponseDataAsString().trim()
 //def csr = prev.getResponseDataAsString().trim().replaceAll(&quot;\\r?\\n&quot;, &quot;&quot;)
-def csr_mode = vars.get("csr_mode")
-def csr_modes = &quot;${__P(csr_mode, "csrmode")}&quot;
+def csr_mode = &quot;${__P(csr_mode, "csrmode")}&quot;
 def csr = ""
 
 def filePath = '/dev/shm/csr_storage/mm.txt'
 
-// Write the string to the file
-def text = "vazio"
-
 if (csr_mode == "Pre-made CSR") {
-    csr = vars.get("csr")  // Get from CSV file
-    text = "pre-made"
+    csr = vars.get("csr")  // Get from CSV file    
 } else {
-    csr = prev.getResponseDataAsString()  // Get from OS Process Sampler
-    text = "elses"
+    csr = prev.getResponseDataAsString()  // Get from OS Process Sampler    
 }
-
-// Use Groovy's File class to append text to the file
-def file = new File(filePath)
-file.append(csr_mode + " + " + csr_modes + " + " + text + "\n")  // Adds a newline after the text
-
-
 
 //def csr = prev.getResponseDataAsString()
 
