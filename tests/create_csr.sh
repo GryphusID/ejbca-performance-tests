@@ -42,12 +42,14 @@ generate_csr_cmd() {
 
 }
 
+STORAGE_DIR="/dev/shm/csr_storage"
+CSR_FILE="$STORAGE_DIR/csr_list.csv"
+
+#The file must exist for jmeter interpretation
+echo "" > "$CSR_FILE"
 
 # CSR_MODE=0 -> Pre-made CSR
 if [[ "$CSR_MODE" == "0" ]]; then    
-
-    STORAGE_DIR="/dev/shm/csr_storage"
-    CSR_FILE="$STORAGE_DIR/csr_list.csv"
 
     # Ensure storage directory exists
     mkdir -p "$STORAGE_DIR"
