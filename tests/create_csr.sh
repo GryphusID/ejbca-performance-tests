@@ -45,17 +45,14 @@ generate_csr_cmd() {
 STORAGE_DIR="/dev/shm/csr_storage"
 CSR_FILE="$STORAGE_DIR/csr_list.csv"
 
+# Ensure storage directory exists
+mkdir -p "$STORAGE_DIR"
+
 #The file must exist for jmeter interpretation
 echo "" > "$CSR_FILE"
 
 # CSR_MODE=0 -> Pre-made CSR
 if [[ "$CSR_MODE" == "0" ]]; then    
-
-    # Ensure storage directory exists
-    mkdir -p "$STORAGE_DIR"
-
-    # Remove old CSR file if it exists
-    rm -f "$CSR_FILE"
 
     for ((i=1; i<=TOTAL_CSR; i++)); do
         # Generate a CSR
