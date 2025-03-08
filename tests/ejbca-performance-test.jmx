@@ -28,9 +28,9 @@
         </CSVDataSet>        
         <hashTree/> 
         <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller">
-          <stringProp name="IfController.condition">"${__P(csr_mode,0)}" == "2"</stringProp>
+          <stringProp name="IfController.condition">${__groovy("${__P(csr_mode, "csrmode")}" == "2")}</stringProp>
           <boolProp name="IfController.evaluateAll">false</boolProp>
-          <boolProp name="IfController.useExpression">true</boolProp>
+          <boolProp name="IfController.useExpression">false</boolProp>
         </IfController>
         <hashTree>
          <SystemSampler guiclass="SystemSamplerGui" testclass="SystemSampler" testname="Create CSR">
