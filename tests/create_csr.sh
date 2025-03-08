@@ -51,6 +51,7 @@ if [[ "$CSR_MODE" == "1" ]]; then
 # CSR_MODE=0 -> Create all CSRs
 elif [[ "$CSR_MODE" == "0" ]]; then    
 
+    echo -n "" > "$CSR_FILE"
     for ((i=1; i<=TOTAL_CSR; i++)); do
         # Generate a CSR
         csr_output=$(generate_csr_cmd "$ALGORITHM" "$THREAD" "$SUBJECT")
