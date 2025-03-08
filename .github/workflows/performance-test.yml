@@ -184,8 +184,8 @@ jobs:
 
       - name: Copy JMeter Report to gh-pages directory
         run: |
-          mkdir -p repo/reports/${RUN_ID}_${{ inputs.num_of_threads }}x${{ inputs.num_of_certs }}_${{ inputs.algorithm }}_on_${{ env.runnerLabels }}
-          cp -r report-${RUN_ID}/* repo/reports/${RUN_ID}_${{ inputs.num_of_threads }}x${{ inputs.num_of_certs }}_${{ inputs.algorithm }}_on_${{ env.runnerLabels }}/
+          mkdir -p repo/reports/${RUN_ID}_${{ inputs.num_of_threads }}x${{ inputs.num_of_certs }}_${{ inputs.algorithm }}_on_${{ env.runnerLabels }}_with_${{ github.event.inputs.csr_mode }}
+          cp -r report-${RUN_ID}/* repo/reports/${RUN_ID}_${{ inputs.num_of_threads }}x${{ inputs.num_of_certs }}_${{ inputs.algorithm }}_on_${{ env.runnerLabels }}_with_${{ github.event.inputs.csr_mode }}/
             
       - name: Generate Index File
         run: |
@@ -203,9 +203,9 @@ jobs:
           cd repo
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add reports/${RUN_ID}_${{ inputs.num_of_threads }}x${{ inputs.num_of_certs }}_${{ inputs.algorithm }}_on_${{ env.runnerLabels }}
+          git add reports/${RUN_ID}_${{ inputs.num_of_threads }}x${{ inputs.num_of_certs }}_${{ inputs.algorithm }}_on_${{ env.runnerLabels }}_with_${{ github.event.inputs.csr_mode }}
           git add index.html
-          git commit -m "Add JMeter report for ${RUN_ID}_${{ inputs.num_of_threads }}x${{ inputs.num_of_certs }}_${{ inputs.algorithm }}_on_${{ env.runnerLabels }}"
+          git commit -m "Add JMeter report for ${RUN_ID}_${{ inputs.num_of_threads }}x${{ inputs.num_of_certs }}_${{ inputs.algorithm }}_on_${{ env.runnerLabels }}_with_${{ github.event.inputs.csr_mode }}"
           git push origin gh-pages
 
       - name: Run final exit check
