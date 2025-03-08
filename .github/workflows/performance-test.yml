@@ -184,8 +184,9 @@ jobs:
 
       - name: Copy JMeter Report to gh-pages directory
         run: |
-          mkdir -p repo/reports/${RUN_ID}_${{ inputs.num_of_threads }}x${{ inputs.num_of_certs }}_${{ inputs.algorithm }}_on_${{ env.runnerLabels }}_with_${{ github.event.inputs.csr_mode }}
-          cp -r report-${RUN_ID}/* repo/reports/${RUN_ID}_${{ inputs.num_of_threads }}x${{ inputs.num_of_certs }}_${{ inputs.algorithm }}_on_${{ env.runnerLabels }}_with_${{ github.event.inputs.csr_mode }}/
+          csr_mode_without_spaces=$(echo ${{ github.event.inputs.csr_mode }} | tr ' ' '_')
+          mkdir -p repo/reports/${RUN_ID}_${{ inputs.num_of_threads }}x${{ inputs.num_of_certs }}_${{ inputs.algorithm }}_on_${{ env.runnerLabels }}_with_${csr_mode_without_spaces}
+          cp -r report-${RUN_ID}/* repo/reports/${RUN_ID}_${{ inputs.num_of_threads }}x${{ inputs.num_of_certs }}_${{ inputs.algorithm }}_on_${{ env.runnerLabels }}_with_${csr_mode_without_spaces}/
             
       - name: Generate Index File
         run: |
@@ -200,12 +201,13 @@ jobs:
 
       - name: Commit and Push Reports to gh-pages
         run: |
+          csr_mode_without_spaces=$(echo ${{ github.event.inputs.csr_mode }} | tr ' ' '_')
           cd repo
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add reports/${RUN_ID}_${{ inputs.num_of_threads }}x${{ inputs.num_of_certs }}_${{ inputs.algorithm }}_on_${{ env.runnerLabels }}_with_${{ github.event.inputs.csr_mode }}
+          git add reports/${RUN_ID}_${{ inputs.num_of_threads }}x${{ inputs.num_of_certs }}_${{ inputs.algorithm }}_on_${{ env.runnerLabels }}_with_${csr_mode_without_spaces}
           git add index.html
-          git commit -m "Add JMeter report for ${RUN_ID}_${{ inputs.num_of_threads }}x${{ inputs.num_of_certs }}_${{ inputs.algorithm }}_on_${{ env.runnerLabels }}_with_${{ github.event.inputs.csr_mode }}"
+          git commit -m "Add JMeter report for ${RUN_ID}_${{ inputs.num_of_threads }}x${{ inputs.num_of_certs }}_${{ inputs.algorithm }}_on_${{ env.runnerLabels }}_with_${csr_mode_without_spaces}"
           git push origin gh-pages
 
       - name: Run final exit check
