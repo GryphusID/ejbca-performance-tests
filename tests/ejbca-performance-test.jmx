@@ -66,7 +66,7 @@
           </elementProp>
           <stringProp name="SystemSampler.directory"></stringProp>
          </SystemSampler>          
-        <hashTree>        
+         <hashTree>        
           <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor">
             <stringProp name="scriptLanguage">groovy</stringProp>
             <stringProp name="parameters"></stringProp>
@@ -105,7 +105,8 @@ vars.put(&quot;json_payload&quot;, jsonPayload)  // Store the payload in a JMete
 </stringProp>
           </JSR223PostProcessor>
           <hashTree/>    
-        </hashTree>    
+         </hashTree> 
+        </hashTree> 
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request - enroll">
           <stringProp name="HTTPSampler.domain">${__P(host_name, "localhost")}</stringProp>
           <stringProp name="HTTPSampler.port">${__P(host_port, 8443)}</stringProp>
