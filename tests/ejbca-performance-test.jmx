@@ -27,7 +27,13 @@
           <stringProp name="delimiter">,</stringProp>
         </CSVDataSet>        
         <hashTree/> 
-         <SystemSampler guiclass="SystemSamplerGui" testclass="SystemSampler" testname="OS Process Sampler">
+        <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller">
+          <stringProp name="IfController.condition">${__P(csr_mode,0)}==2</stringProp>
+          <boolProp name="IfController.evaluateAll">false</boolProp>
+          <boolProp name="IfController.useExpression">true</boolProp>
+        </IfController>
+        <hashTree>
+         <SystemSampler guiclass="SystemSamplerGui" testclass="SystemSampler" testname="Create CSR">
           <boolProp name="SystemSampler.checkReturnCode">true</boolProp>
           <stringProp name="SystemSampler.expectedReturnCode">0</stringProp>
           <stringProp name="SystemSampler.command">tests/create_csr.sh</stringProp>
