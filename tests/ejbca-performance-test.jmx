@@ -27,12 +27,6 @@
           <stringProp name="delimiter">,</stringProp>
         </CSVDataSet>        
         <hashTree/> 
-        <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If Controller">
-          <stringProp name="IfController.condition">false</stringProp>
-          <boolProp name="IfController.evaluateAll">false</boolProp>
-          <boolProp name="IfController.useExpression">true</boolProp>
-        </IfController>
-        <hashTree>
          <SystemSampler guiclass="SystemSamplerGui" testclass="SystemSampler" testname="OS Process Sampler">
           <boolProp name="SystemSampler.checkReturnCode">true</boolProp>
           <stringProp name="SystemSampler.expectedReturnCode">0</stringProp>
@@ -54,15 +48,19 @@
                 <stringProp name="Argument.value">${__P(subject_dn,"")}</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
+              <elementProp name="" elementType="Argument">
+                <stringProp name="Argument.name"></stringProp>
+                <stringProp name="Argument.value">${__P(csr_mode,"")}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
             </collectionProp>
           </elementProp>
           <elementProp name="SystemSampler.environment" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
           <stringProp name="SystemSampler.directory"></stringProp>
-         </SystemSampler> 
-         <hashTree/>
-        </hashTree>        
+         </SystemSampler>          
+        <hashTree>        
           <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor">
             <stringProp name="scriptLanguage">groovy</stringProp>
             <stringProp name="parameters"></stringProp>
@@ -74,7 +72,7 @@
 def csr_mode = &quot;${__P(csr_mode, "csrmode")}&quot;
 def csr = ""
 
-if (csr_mode == "Pre-made CSR") {
+if (csr_mode == "1") {
     csr = vars.get("csr_id")  // Get from CSV file    
 } else {
     csr = prev.getResponseDataAsString()  // Get from OS Process Sampler    
@@ -100,7 +98,8 @@ def jsonPayload = &quot;&quot;&quot;{
 vars.put(&quot;json_payload&quot;, jsonPayload)  // Store the payload in a JMeter variable
 </stringProp>
           </JSR223PostProcessor>
-          <hashTree/>        
+          <hashTree/>    
+        </hashTree>    
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request - enroll">
           <stringProp name="HTTPSampler.domain">${__P(host_name, "localhost")}</stringProp>
           <stringProp name="HTTPSampler.port">${__P(host_port, 8443)}</stringProp>

@@ -4,7 +4,7 @@
 THREAD=$1
 ALGORITHM=$2
 SUBJECT=$3
-CSR_MODE=$4
+CSR_MODE=$4 #0-make now the CSRs 1-don't do anything 2-do CSR on the fly
 TOTAL_CSR=$5
 
 generate_csr_cmd() {
@@ -42,20 +42,11 @@ generate_csr_cmd() {
 
 }
 
-STORAGE_DIR="/run/user/$(id -u)/csr_storage"
-CSR_FILE="$STORAGE_DIR/csr_list.csv"
-
-# Ensure storage directory exists
-mkdir -p "$STORAGE_DIR"
-
-#The file must exist for jmeter interpretation
-echo "" > "$CSR_FILE"
-
-ln -sf /run/user/1002/$(id -u)/csr_storage ../csr_storage
-
-
-# CSR_MODE=0 -> Pre-made CSR
-if [[ "$CSR_MODE" == "0" ]]; then    
+# CSR_MODE=1 -> pre-made CSR which means CSR already created previously with CSR_MODE=0
+if [[ "$CSR_MODE" == "1" ]]; then
+  exit 0
+# CSR_MODE=0 -> Create all CSRs
+elif [[ "$CSR_MODE" == "0" ]]; then    
 
     for ((i=1; i<=TOTAL_CSR; i++)); do
         # Generate a CSR
@@ -66,33 +57,31 @@ if [[ "$CSR_MODE" == "0" ]]; then
         echo "$i,$(echo $csr_output)" >> "$CSR_FILE"
 
     done
-    
-    exit 0
-fi
-
-
-key_cmd=""
-key_algorithm=$(echo ${ALGORITHM} | cut -d ':' -f1)
-
-if [[ "${key_algorithm}" == "RSA" ]]; then
+# CSR_MODE=2 -> Create CSR on the fly    
+elif [[ "$CSR_MODE" == "2" ]]; then
+  key_cmd=""
+  key_algorithm=$(echo ${ALGORITHM} | cut -d ':' -f1)
+  
+  if [[ "${key_algorithm}" == "RSA" ]]; then
     key_opt=$(echo ${ALGORITHM} | cut -d ':' -f2)
     # Generate key
     key_cmd="openssl genpkey -algorithm ${key_algorithm} -pkeyopt rsa_keygen_bits:${key_opt} 2>/dev/null"
-elif [[ "${key_algorithm}" == "EC" ]]; then
+  elif [[ "${key_algorithm}" == "EC" ]]; then
     key_opt=$(echo ${ALGORITHM} | cut -d ':' -f2)
     # Generate key
     key_cmd="openssl genpkey -algorithm ${key_algorithm} -pkeyopt ec_paramgen_curve:${key_opt} 2>/dev/null"
-elif [[ "${key_algorithm}" == "ED25519" ]]; then
+  elif [[ "${key_algorithm}" == "ED25519" ]]; then
     # Generate key
     key_cmd="openssl genpkey -algorithm ${key_algorithm} 2>/dev/null"
+  fi
+
+  # Change "#" with ${THREAD}
+  changed_subject=$(echo "$SUBJECT" | sed "s/#/\${THREAD}/g")
+
+  # Create CSR
+  #csr_cmd="openssl req -new -key <(${key_cmd}) -subj /CN=enduser${THREAD}/O=enduser${THREAD}_org/C=PT"
+  csr_cmd="openssl req -new -key <($key_cmd) -subj ${changed_subject}"
+  echo -n "-----BEGIN CERTIFICATE REQUEST-----\n"
+  eval ${csr_cmd} | grep -v "CERTIFICATE REQUEST" | tr -d '\n'
+  echo -n "\n-----END CERTIFICATE REQUEST-----"
 fi
-
-# Change "#" with ${THREAD}
-changed_subject=$(echo "$SUBJECT" | sed "s/#/\${THREAD}/g")
-
-# Create CSR
-#csr_cmd="openssl req -new -key <(${key_cmd}) -subj /CN=enduser${THREAD}/O=enduser${THREAD}_org/C=PT"
-csr_cmd="openssl req -new -key <($key_cmd) -subj ${changed_subject}"
-echo -n "-----BEGIN CERTIFICATE REQUEST-----\n"
-eval ${csr_cmd} | grep -v "CERTIFICATE REQUEST" | tr -d '\n'
-echo -n "\n-----END CERTIFICATE REQUEST-----"
