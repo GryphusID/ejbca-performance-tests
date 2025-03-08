@@ -7,6 +7,9 @@ SUBJECT=$3
 CSR_MODE=$4 #0-make now the CSRs 1-don't do anything 2-do CSR on the fly
 TOTAL_CSR=$5
 
+STORAGE_DIR="/run/user/$(id -u)/csr_storage"
+CSR_FILE="$STORAGE_DIR/csr_list.csv"
+
 generate_csr_cmd() {
     local algorithm="$1"
     local thread="$2"
