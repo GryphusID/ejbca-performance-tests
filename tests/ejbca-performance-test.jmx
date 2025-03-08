@@ -140,7 +140,7 @@ vars.put(&quot;json_payload&quot;, jsonPayload)  // Store the payload in a JMete
 def csr_mode = &quot;${__P(csr_mode, "csrmode")}&quot;
 def csr = ""
 
-if (csr_mode == "Pre-made CSR") {
+if (csr_mode == "1") {
     csr = vars.get("csr_id")  // Get from CSV file    
 } else {
     csr = prev.getResponseDataAsString()  // Get from OS Process Sampler    
