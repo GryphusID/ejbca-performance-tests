@@ -120,7 +120,7 @@ jobs:
           mkdir -p "$STORAGE_DIR"
 
           #The file must exist for jmeter interpretation
-          echo "" > "$CSR_FILE"
+          touch "$CSR_FILE"
 
           ln -sf /run/user/$(id -u)/csr_storage $GITHUB_WORKSPACE/csr_storage
 
