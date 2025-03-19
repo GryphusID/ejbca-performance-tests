@@ -111,9 +111,7 @@ jobs:
     # Create CSR folder
       - name: Create CSRs folder and create variable CSR_MODE
         run: |
-          echo "$(whoami)"
-          echo "$(id -u)"
-          STORAGE_DIR="/run/user/$(id -u)/csr_storage"
+          STORAGE_DIR="/run/ejbca-performance-test/csr_storage"
           CSR_FILE="$STORAGE_DIR/csr_list.csv"
 
           # Ensure storage directory exists
@@ -122,7 +120,7 @@ jobs:
           #The file must exist for jmeter interpretation
           touch "$CSR_FILE"
 
-          ln -sf /run/user/$(id -u)/csr_storage $GITHUB_WORKSPACE/csr_storage
+          ln -sf $STORAGE_DIR $GITHUB_WORKSPACE/csr_storage
 
           #Create variable CSR_MODE
           if [[ "${{ github.event.inputs.csr_mode }}" == "Pre-made CSR" ]]; then
@@ -207,7 +205,7 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git add reports/${RUN_ID}_${{ inputs.num_of_threads }}x${{ inputs.num_of_certs }}_${{ inputs.algorithm }}_on_${{ env.runnerLabels }}_with_${csr_mode_without_spaces}
           git add index.html
-          git commit -m "Add JMeter report for ${RUN_ID}_${{ inputs.num_of_threads }}x${{ inputs.num_of_certs }}_${{ inputs.algorithm }}_on_${{ env.runnerLabels }}_with_${csr_mode_without_spaces}"
+          git commit -m "Add JMeter report for ${RUN_ID}_${{ inputs.num_of_threads }}x${{ inputs.num_of_certs }}_${{ inputs.algorithm }}_on_${{ env.runnerLabels }}_with_${{ github.event.inputs.csr_mode }}"
           git push origin gh-pages
 
       - name: Run final exit check
