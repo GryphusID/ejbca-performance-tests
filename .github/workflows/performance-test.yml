@@ -1,32 +1,35 @@
 name: Performance test
 
 on:
+  schedule:
+    - cron: '5 * * * *'  # Every hour (at minute 5)
   workflow_dispatch:
     inputs:
       environment_name:
         type: environment
         description: 'Choose environment'      
+        default: 'eurotux-s1'
       csr_mode:
         description: 'CSR creation mode'
         type: choice
         required: true
-        default: 'Pre-made CSR'
+        default: 'Make CSR on the fly'
         options:
           - Pre-made CSR
           - Make CSR on the fly  
       num_of_threads:
         description: 'Number of threads (end-user clients)'
         required: false
-        default: '3'
+        default: '1'
       num_of_certs:
         description: 'Number of certificates per thread'
         required: false
-        default: '5'
+        default: '100'
       algorithm:
         description: 'Key algorithms'
         type: choice
         required: true
-        default: 'RSA:2048'
+        default: 'EC:P-256'
         options:
           - RSA:1024
           - RSA:2048
@@ -38,15 +41,15 @@ on:
       ca_name:
         description: 'CA to issue the certificates'
         required: true
-        default: ''
+        default: 'new_ecc256_issuing_secp256r1'
       cert_profile:
         description: 'CA profile name'
         required: true
-        default: ''
+        default: 'new_ENDUSER'
       enduser_profile:
         description: 'Enduser profile name'
         required: true
-        default: ''
+        default: 'new_ENDUSER'
       subject_dn:
         description: 'Subject DN'
         required: true
