@@ -1,0 +1,50 @@
+{
+  "Total" : {
+    "transaction" : "Total",
+    "sampleCount" : 20000,
+    "errorCount" : 0,
+    "errorPct" : 0.0,
+    "meanResTime" : 166.32099999999946,
+    "medianResTime" : 158.5,
+    "minResTime" : 7.0,
+    "maxResTime" : 527.0,
+    "pct1ResTime" : 328.0,
+    "pct2ResTime" : 331.0,
+    "pct3ResTime" : 335.0,
+    "throughput" : 5.999485844063163,
+    "receivedKBytesPerSec" : 9.139469091248879,
+    "sentKBytesPerSec" : 2.4079967596776957
+  },
+  "Create CSR" : {
+    "transaction" : "Create CSR",
+    "sampleCount" : 10000,
+    "errorCount" : 0,
+    "errorPct" : 0.0,
+    "meanResTime" : 8.292900000000023,
+    "medianResTime" : 8.0,
+    "minResTime" : 7.0,
+    "maxResTime" : 10.0,
+    "pct1ResTime" : 9.0,
+    "pct2ResTime" : 9.0,
+    "pct3ResTime" : 9.0,
+    "throughput" : 3.000039900530677,
+    "receivedKBytesPerSec" : 0.9375124689158365,
+    "sentKBytesPerSec" : 0.0
+  },
+  "HTTP Request - enroll" : {
+    "transaction" : "HTTP Request - enroll",
+    "sampleCount" : 10000,
+    "errorCount" : 0,
+    "errorPct" : 0.0,
+    "meanResTime" : 324.34909999999996,
+    "medianResTime" : 324.0,
+    "minResTime" : 307.0,
+    "maxResTime" : 527.0,
+    "pct1ResTime" : 331.0,
+    "pct2ResTime" : 333.0,
+    "pct3ResTime" : 336.0,
+    "throughput" : 2.9998779049692677,
+    "receivedKBytesPerSec" : 8.202418505316833,
+    "sentKBytesPerSec" : 2.4081051151218147
+  }
+}
