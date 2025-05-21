@@ -44,8 +44,8 @@
 | 24      | 500                      | 12000               | RSA 3072  | 15                           | 54.54                | 13.39                            | 3      |
 
 ## Cleaned AuditRecordData table and CertificateData with large number of records
-| Threads | Certificates per Thread | Total Certificates | Algorithm | Total Time (min) | Avg Enroll (ms) | TPS (Enroll) | Errors |
-|---------|--------------------------|---------------------|-----------|------------------|------------------|--------------|--------|
+| Threads | Certificates per thread | Total certificates | Algorithm | Total time CSR+enroll (min) | Average enroll (ms) | Transactions per second enroll | Errors |
+|---------|--------------------------|---------------------|-----------|------------------------------|----------------------|----------------------------------|--------|
 | 1       | 10000                    | 10000               | __ED25519__   | 4                | 17.11            | 38.90        | 0      |
 | 1       | 10000                    | 10000               | ED25519   | 4                | 16.33            | 39.88        | 0      |
 | 1       | 10000                    | 10000               | ED25519   | 4                | 16.15            | 40.25        | 0      |
