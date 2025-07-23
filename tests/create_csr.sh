@@ -33,7 +33,8 @@ generate_csr_cmd() {
 
     # Replace "#" with the thread number
     local changed_subject
-    changed_subject=$(echo "$subject" | sed "s/#/${thread}/g")
+    random_suffix=$(printf "%010d" $(( RANDOM % 100000 ))$(od -An -N4 -i /dev/random | tr -d ' '))
+    changed_subject=$(echo "$subject" | sed "s/#/${thread}_${random_suffix}/g")
 
     # Construct the CSR command
     local csr_cmd
