@@ -81,7 +81,8 @@ elif [[ "$CSR_MODE" == "2" ]]; then
   fi
 
   # Change "#" with ${THREAD}
-  changed_subject=$(echo "$SUBJECT" | sed "s/#/\${THREAD}/g")
+  random_suffix=$(printf "%010d" $(( RANDOM % 100000 ))$(od -An -N4 -i /dev/random | tr -d ' '))
+  changed_subject=$(echo "$SUBJECT" | sed "s/#/\${THREAD}_${random_suffix}/g")
 
   # Create CSR
   #csr_cmd="openssl req -new -key <(${key_cmd}) -subj /CN=enduser${THREAD}/O=enduser${THREAD}_org/C=PT"
