@@ -35,6 +35,8 @@ generate_csr_cmd() {
     local changed_subject
     random_suffix=$(printf "%010d" $(( RANDOM % 100000 ))$(od -An -N4 -i /dev/random | tr -d ' '))
     changed_subject=$(echo "$subject" | sed "s/#/${thread}_${random_suffix}/g")
+    # Trim and sanitize subject before use
+    changed_subject=$(echo "$changed_subject" | tr -d '\n\r')
 
     # Construct the CSR command
     local csr_cmd
