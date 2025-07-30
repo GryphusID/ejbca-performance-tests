@@ -58,10 +58,11 @@ elif [[ "$CSR_MODE" == "0" ]]; then
     for ((i=1; i<=TOTAL_CSR; i++)); do
         # Generate a CSR
         csr_output=$(generate_csr_cmd "$ALGORITHM" "$THREAD" "$SUBJECT")
+        csr_json=$(echo "$csr_output" | sed ':a;N;$!ba;s/\n/\\n/g')
 
         # Save in CSV: format "thread_id,csr"
         #echo "$i,$(echo "$csr_output" | tr -d '\n')" >> "$CSR_FILE"
-        echo "$i,$(echo $csr_output)" >> "$CSR_FILE"
+        echo "$i,$(echo $csr_json)" >> "$CSR_FILE"
 
     done
 # CSR_MODE=2 -> Create CSR on the fly    
