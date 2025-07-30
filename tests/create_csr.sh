@@ -33,7 +33,7 @@ generate_csr_cmd() {
 
     # Replace "#" with the thread number
     local changed_subject
-    random_suffix=$(printf "%010d" $(( RANDOM % 100000 ))$(od -An -N4 -i /dev/random | tr -d ' '))
+    random_suffix=$(printf "%05d%05d" $((RANDOM % 100000)) $((RANDOM % 100000)))
     changed_subject=$(echo "$subject" | sed "s/#/${thread}_${random_suffix}/g")
     # Trim and sanitize subject before use
     changed_subject=$(echo "$changed_subject" | tr -d '\n\r')
