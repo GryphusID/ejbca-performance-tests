@@ -37,7 +37,8 @@ on:
           - RSA:4096
           - EC:P-256
           - EC:P-384
-          - ED25519  
+          - ED25519
+          - SM2
       ca_name:
         description: 'CA to issue the certificates'
         required: true

@@ -29,6 +29,8 @@ generate_csr_cmd() {
         key_cmd="openssl genpkey -algorithm ${key_algorithm} -pkeyopt ec_paramgen_curve:${key_opt} 2>/dev/null"
     elif [[ "${key_algorithm}" == "ED25519" ]]; then
         key_cmd="openssl genpkey -algorithm ${key_algorithm} 2>/dev/null"
+    elif [[ "${key_algorithm}" == "SM2" ]]; then
+        key_cmd="openssl genpkey -algorithm ${key_algorithm} 2>/dev/null"
     fi
 
     # Replace "#" with the thread number
@@ -81,6 +83,8 @@ elif [[ "$CSR_MODE" == "2" ]]; then
   elif [[ "${key_algorithm}" == "ED25519" ]]; then
     # Generate key
     key_cmd="openssl genpkey -algorithm ${key_algorithm} 2>/dev/null"
+  elif [[ "${key_algorithm}" == "SM2" ]]; then
+      key_cmd="openssl genpkey -algorithm ${key_algorithm} 2>/dev/null"
   fi
 
   # Change "#" with ${THREAD}
